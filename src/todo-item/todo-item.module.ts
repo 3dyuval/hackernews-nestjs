@@ -11,8 +11,9 @@ import { TodoItemResolver } from './todo-item.resolvers';
     imports: [
         NestjsQueryGraphQLModule.forFeature({
             imports: [NestjsQueryTypeOrmModule.forFeature([TodoItemEntity])],
-            dtos: [{DTOClass: TodoItemDTO}]
+            dtos: [{DTOClass: TodoItemDTO}],
         })
-    ]
+    ],
+    
 })
 export class TodoItemModule {}
