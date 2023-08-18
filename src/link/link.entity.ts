@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
 
 @Entity('link')
@@ -25,6 +25,6 @@ export class LinkEntity {
   userId: string;
 
   @Column()
-  @Feld()
+  @Field()
   topic: string;
 }

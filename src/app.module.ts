@@ -1,17 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TodoItemModule } from './todo-item/todo-item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { LinkModule } from './link/link.module';
 import { CommentModule } from './comment/comment.module';
+import { FeedModule } from './feed/feed.module';
 import * as path from 'path';
 @Module({
   imports: [
-    TodoItemModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -30,6 +29,7 @@ import * as path from 'path';
     }),
     LinkModule,
     CommentModule,
+    FeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
