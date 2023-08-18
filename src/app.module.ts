@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { LinkModule } from './link/link.module';
 import * as path from 'path';
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import * as path from 'path';
       driver: ApolloDriver,
       autoSchemaFile: path.join(process.cwd(), 'src', 'schema.gql'),
     }),
+    LinkModule,
   ],
   controllers: [AppController],
   providers: [AppService],
