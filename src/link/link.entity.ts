@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
 
-@Entity('link')
+@Entity('Link')
 @ObjectType()
-export class LinkEntity {
+export class Link {
   @PrimaryGeneratedColumn({ type: 'int' })
   @Field(() => Int)
   id: number;
@@ -12,8 +12,8 @@ export class LinkEntity {
   @Field()
   url: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  @Field()
+  @Column({ type: 'varchar', length: 255, nullable: true})
+  @Field({ nullable: true })
   description: string;
 
   @Column({ type: 'timestamp without time zone', default: () => 'now()' })
@@ -24,7 +24,7 @@ export class LinkEntity {
   @Field()
   userId: string;
 
-  @Column()
-  @Field()
+  @Column({nullable: true})
+  @Field({nullable: true})
   topic: string;
 }

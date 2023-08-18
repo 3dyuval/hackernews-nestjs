@@ -6,9 +6,9 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
-import { LinkEntity } from '../link/link.entity';
-@Entity('comment')
-export class CommentEntity {
+import { Link } from '../link/link.entity';
+@Entity('Comment')
+export class Comment {
   @PrimaryGeneratedColumn({ type: 'int' })
   @Field(() => Int)
   id: number;
@@ -17,12 +17,12 @@ export class CommentEntity {
   @Field()
   body: string;
 
-  @OneToOne(() => LinkEntity)
+  @OneToOne(() => Link)
   @JoinColumn()
   @Field(() => Int)
   link: number;
 
-  @Column()
-  @Field()
+  @Column({nullable: true})
+  @Field({nullable: true})
   parentId: string;
 }
