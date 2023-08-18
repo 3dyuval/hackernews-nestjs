@@ -5,21 +5,27 @@ import { TodoItemModule } from './todo-item/todo-item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
+import * as path from 'path';
 @Module({
   imports: [
+    TodoItemModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      database: 'gettingstarted',
-      username: 'gettingstarted',
+      host: process.env['DB_POSTGRES_HOST'],
+      port: Number.parseInt(process.env['DB_POSTGRES_PORT']),
+      database: process.env['DB_POSTGRES_CLIENT_DATABASE_NAME'],
+      username: process.env['DB_POSTGRES_USER'],
+      password: process.env['DB_POSTGRES_PASSWORD'],
       autoLoadEntities: true,
       synchronize: true,
-      logging: true
+      logging: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: true,
+      autoSchemaFile: path.join(process.cwd(), 'src', 'schema.gql'),
     }),
-    TodoItemModule
   ],
   controllers: [AppController],
   providers: [AppService],
