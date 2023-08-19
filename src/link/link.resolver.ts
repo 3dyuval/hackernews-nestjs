@@ -1,8 +1,6 @@
 import { Query, Args, Resolver, Mutation } from '@nestjs/graphql'
 import { LinkService } from './link.service'
 import { Link } from './link.entity'
-import { UseGuards } from '@nestjs/common'
-import { GQLAuthGuard } from 'src/auth/gql-auth.gurad'
 
 @Resolver()
 export class LinkResolver {
@@ -13,7 +11,6 @@ export class LinkResolver {
     return await this.linkService.findLink(id)
   }
 
-  @UseGuards(GQLAuthGuard)
   @Mutation((returns) => Link)
   async postLink(
     @Args('url') url: string,
