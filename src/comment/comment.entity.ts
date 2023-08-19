@@ -4,10 +4,13 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
 import { Link } from '../link/link.entity';
-@Entity('Comment')
+
+@Entity('comments')
+@ObjectType('Comment')
 export class Comment {
   @PrimaryGeneratedColumn({ type: 'int' })
   @Field(() => Int)
@@ -17,10 +20,9 @@ export class Comment {
   @Field()
   body: string;
 
-  @OneToOne(() => Link)
-  @JoinColumn()
-  @Field(() => Int)
-  link: number;
+  @ManyToOne(type => Link, (link) => link.comments)
+  @Field(type => Link)
+  link: Link;
 
   @Column({nullable: true})
   @Field({nullable: true})

@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { CommentService } from './comment.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Comment])],
-  providers: [Comment, CommentService],
+  providers: [CommentService],
   exports: [CommentService],
 })
 export class CommentModule {}

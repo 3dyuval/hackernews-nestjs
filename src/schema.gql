@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  id: Int!
+  body: String!
+  link: Link!
+  parentId: String
+}
+
 type Link {
   id: Int!
   url: String!
@@ -9,6 +16,7 @@ type Link {
   createdAt: DateTime!
   userId: String!
   topic: String
+  comments: [Comment!]!
 }
 
 """

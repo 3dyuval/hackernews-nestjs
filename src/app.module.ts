@@ -14,10 +14,10 @@ import { GraphQLModule } from '@nestjs/graphql'
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      url: `postgres://3dyuval:${process.env['DB_NEON_PASSWORD']}@ep-rapid-leaf-80187615.us-west-2.aws.neon.tech/hackernews?sslmode=require`,
+      url: process.env['NEON_DB_URL_DEV'],
       type: 'postgres' as any,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
       logging: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -27,7 +27,6 @@ import { GraphQLModule } from '@nestjs/graphql'
     LinkModule,
     CommentModule,
     FeedModule,
-    ConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],

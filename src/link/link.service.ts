@@ -14,7 +14,7 @@ export class LinkService {
     }
 
     async findLink(id: number): Promise<Link | null> {
-        return this.linkRepository.findOneByOrFail({ id }).catch(() => null);
+        return this.linkRepository.findOneBy({ id });
     }
 
     async postLink(url: string, description: string): Promise<Link> {
