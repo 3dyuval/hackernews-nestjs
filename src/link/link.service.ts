@@ -12,4 +12,8 @@ export class LinkService {
     async getAllLinks(): Promise<Link[]> {
         return this.linkRepository.find();
     }
+
+    async findLink(id: number): Promise<Link | null> {
+        return this.linkRepository.findOneByOrFail({ id }).catch(() => null);
+    }
 }

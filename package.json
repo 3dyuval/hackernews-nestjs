@@ -29,7 +29,6 @@
     "@ptc-org/nestjs-query-core": "^2.3.1",
     "@ptc-org/nestjs-query-graphql": "^2.3.1",
     "@ptc-org/nestjs-query-typeorm": "^2.3.1",
-    "@zerosecrets/zero": "^0.2.0",
     "apollo-server-express": "^3.12.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",

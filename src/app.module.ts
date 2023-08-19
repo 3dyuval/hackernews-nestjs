@@ -17,7 +17,7 @@ import { GraphQLModule } from '@nestjs/graphql'
       url: `postgres://3dyuval:${process.env['DB_NEON_PASSWORD']}@ep-rapid-leaf-80187615.us-west-2.aws.neon.tech/hackernews?sslmode=require`,
       type: 'postgres' as any,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
       logging: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
