@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { Link } from './link.entity';
+import { Link } from './link.entity'
 import { LinkService } from './link.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LinkResolver } from './link.resolver';
