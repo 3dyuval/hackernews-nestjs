@@ -21,3 +21,7 @@ type Query {
   feed: [Link!]!
   info: String!
 }
+
+type Mutation {
+  postLink(url: String!, description: String!): Link!
+}

@@ -1,4 +1,4 @@
-import { Query, Args, Resolver } from '@nestjs/graphql';
+import { Query, Args, Resolver, Mutation } from '@nestjs/graphql';
 import {LinkService} from './link.service'
 import {Link} from './link.entity'
 
@@ -11,6 +11,10 @@ export class LinkResolver {
     async findLink(@Args('id') id: number) {
         return await this.linkService.findLink(id);
     }
-        
+
+    @Mutation(returns => Link)
+    async postLink(@Args('url') url: string, @Args('description') description: string) {
+        return await this.linkService.postLink(url, description);
+    }
 
 }
