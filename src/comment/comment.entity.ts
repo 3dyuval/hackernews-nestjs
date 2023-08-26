@@ -5,8 +5,9 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
-import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql';
+import { Field, Int, ObjectType, GraphQLISODateTime, createUnionType } from '@nestjs/graphql';
 import { Link } from '../link/link.entity';
 
 @Entity('comments')
@@ -21,10 +22,29 @@ export class Comment {
   body: string;
 
   @ManyToOne(type => Link, (link) => link.comments)
-  @Field(type => Link)
   link: Link;
 
   @Column({nullable: true})
-  @Field({nullable: true})
-  parentId: string;
+  parentId?: number;
+
+  @ManyToOne(type => Comment, (comment) => comment.children)
+  @JoinColumn({ name: 'parentId' })
+  commentParent: Comment;
+
+  @OneToMany(type => Comment, (comment) => comment.parent)
+  children: Comment[];
+  
+  @Column({ type: 'timestamp without time zone', default: () => 'now()' })
+  @Field((type) => GraphQLISODateTime)
+  createdAt: string
+
+
+  @Field(() => CommentParent)
+  parent: typeof CommentParent;
+
 }
+
+export const CommentParent = createUnionType({
+  name: 'CommentParent',
+  types: () => [Link, Comment] as const
+})

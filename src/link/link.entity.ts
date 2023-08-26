@@ -29,6 +29,6 @@ export class Link {
   topic: string
 
   @OneToMany((type) => Comment, (comment) => comment.link)
-  @Field((type) => [Comment], { defaultValue: []})
+  @Field((type) => [Comment], {  defaultValue: []})
   comments: Comment[]
 }
