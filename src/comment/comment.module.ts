@@ -1,5 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from './comment.entity';
+import { Comment } from './entities/comment.entity';
 import { Module } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentResolver } from './comment.resolver';

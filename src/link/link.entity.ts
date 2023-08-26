@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { Field, Int, ObjectType, GraphQLISODateTime } from '@nestjs/graphql'
-import { Comment } from '../comment/comment.entity'
+import { Comment } from '../comment/entities/comment.entity'
 @Entity('links')
 @ObjectType()
 export class Link {

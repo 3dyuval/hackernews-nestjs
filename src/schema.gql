@@ -34,4 +34,11 @@ type Query {
 
 type Mutation {
   postLink(url: String!, description: String!): Link!
+  postComment(CommentInput: CommentInput!): Comment!
+}
+
+input CommentInput {
+  parentId: Int
+  linkId: Int!
+  body: String!
 }

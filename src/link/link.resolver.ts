@@ -1,7 +1,7 @@
 import { Query, Args, Resolver, Mutation, Int, ResolveField, Parent } from '@nestjs/graphql';
 import {LinkService} from './link.service'
 import {Link} from './link.entity'
-import { Comment } from '../comment/comment.entity'
+import { Comment } from '../comment/entities/comment.entity'
 
 @Resolver(of => Link)
 export class LinkResolver {

@@ -17,7 +17,7 @@ import { GraphQLModule } from '@nestjs/graphql'
       url: process.env['NEON_DB_URL_DEV'],
       type: 'postgres' as any,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
       logging: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({

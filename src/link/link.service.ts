@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Link } from './link.entity'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Comment } from 'src/comment/comment.entity'
+import { Comment } from 'src/comment/entities/comment.entity'
 
 @Injectable()
 export class LinkService {
@@ -22,22 +22,19 @@ export class LinkService {
   }
 
   async getCommentsParent(link: Link): Promise<Comment[]> {
-    if (link.comments.length) {
-      let { comments } = link
-      comments = await Promise.all(
-        comments.map((comment) => {
-          const { parentId } = comment
-          if (typeof parentId === 'number') {
-            comment.parent = link.comments.find(({ id }) => id === parentId)
-          } else {
-            comment.parent = link
-          }
-          return comment
-        })
-      )
-      return comments
+    if (!link.comments.length) {
+      return []
     }
-    return []
+    const { comments } = link
+    return comments.map((comment) => {
+      const { parentId } = comment
+      if (typeof parentId === 'number') {
+        comment.parent = comments.find(({ id }) => id === parentId)
+      } else {
+        comment.parent = link as Link
+      }
+      return comment
+    })
   }
 
   async postLink(url: string, description: string): Promise<Link> {
