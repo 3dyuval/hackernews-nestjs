@@ -17,10 +17,10 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist"],
+    "include": ["./src/**/*"],
     "paths": {
       "@/*": ["./src/*"]
     },
+    "exclude": ["node_modules", "dist"],
   },
 }

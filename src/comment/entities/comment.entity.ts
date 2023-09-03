@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToOne,
+  CreateDateColumn,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -19,32 +19,32 @@ import { Link } from '@/link/link.entity'
 @Entity('comments')
 @ObjectType('Comment')
 export class Comment {
-  @PrimaryGeneratedColumn({ type: 'int' })
+  @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number
 
-  @Column({ type: 'varchar', length: 500 })
+  @Column('varchar', { length: 500 })
   @Field()
   body: string
 
-  @ManyToOne((type) => Link, (link) => link.comments)
+  @ManyToOne(() => Link, (link) => link.comments)
   link: Link
 
-  @Column({ type: 'timestamp without time zone', default: () => 'now()' })
-  @Field((type) => GraphQLISODateTime)
+  @CreateDateColumn()
+  @Field(() => GraphQLISODateTime)
   createdAt: string
 
-  @Column({ type: 'int'})
-  linkId: number;
+  @Column('int')
+  linkId: number
 
-  @Column({ nullable: true })
+  @Column('int', { nullable: true })
   parentId?: number
 
-  @ManyToOne((type) => Comment, (comment) => comment.children)
+  @ManyToOne(() => Comment, (comment) => comment.children)
   @JoinColumn({ name: 'parentId' })
   commentParent: Comment
 
-  @OneToMany((type) => Comment, (comment) => comment.parent)
+  @OneToMany(() => Comment, (comment) => comment.parent)
   children: Comment[]
 
   @Field(() => CommentParent)

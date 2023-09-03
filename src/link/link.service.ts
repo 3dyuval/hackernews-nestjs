@@ -3,7 +3,8 @@ import { Link } from './link.entity'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Comment } from 'src/comment/entities/comment.entity'
-
+import { getLinks } from './seedlinks'
+import { GraphQLError } from 'graphql'
 @Injectable()
 export class LinkService {
   constructor(
@@ -22,7 +23,7 @@ export class LinkService {
   }
 
   async getCommentsParent(link: Link): Promise<Comment[]> {
-    if (!link.comments.length) {
+    if (!link.comments) {
       return []
     }
     const { comments } = link
@@ -40,5 +41,29 @@ export class LinkService {
   async postLink(url: string, description: string): Promise<Link> {
     const link = this.linkRepository.create({ url, description })
     return this.linkRepository.save(link)
+  }
+
+  async seedLinksFromTopics(
+    topics: string[]
+  ): Promise<Link[] | null | GraphQLError> {
+    return getLinks(topics).then(async (links) => {
+      if (links) {
+        console.log('inserting links:', links)
+        return await this.linkRepository
+          .createQueryBuilder()
+          .insert()
+          .into(Link)
+          .values(links)
+          .execute()
+          .then(() => {
+            return links
+          })
+          .catch((error) => {
+            console.log(error)
+            return new GraphQLError(error)
+          })
+      }
+      return null
+    })
   }
 }
